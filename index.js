@@ -11,14 +11,16 @@ app.use(express.json())
 const port = 4000;
 dotenv.config({ path: "./.env" })
 // Database connection configuration
+
 const pool = new Pool({
     user: 'user',
-    password: 'pass',
-    database: 'users',
-    host: 'postgres',
+    password: '2zl9W3JSo8doEv4Mo734OJoMgOgNUB0s',
+    database: 'users_smks',
+    host: 'dpg-chj2dae4dad01aiqruvg-a',
     port: 5432,
     schema: 'public'
 });
+
 
 
 async function checkDatabaseConnection() {
