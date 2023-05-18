@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8086:8080'
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: users
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: akshay@akshayk.dev
+      PGADMIN_DEFAULT_PASSWORD: yolo
+    ports:
+      - '8083:80'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '4000:4000'
+    environment:
+      - RAORPAY_KEY_ID=rzp_test_QDoWkriK00mgyb
+      - RAORPAY_KEY_SECRET=9AVkNhDSFCGVUwQC535bpPsB
+      - NODEMAILER_AUTH=chatbotusingchatgpt@gmail.com
+      - NODEMAILER_PASSWORD=zamfojpvxnqyzgop
+      - SECRET=GI79UnTboMI7Kfpc
+      - KEY=780789430
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+
